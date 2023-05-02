@@ -1,0 +1,20 @@
+﻿@model List<WatchesModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<link rel="stylesheet" href="~/css/main.css" asp-append-version="true"/>
+@if (Model != null)
+{
+    <main>
+        <h2>Все товары:</h2>
+        <section id="watches" class="catalog">
+        @foreach (var watch in Model)
+        {
+            <div>
+                @Html.ActionLink(watch.Name, "GetByID", "Watches", new { ID = watch.ID })
+            </div>
+        }
+        </section>
+    </main>
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg838"
+   version="1.1"
+   height="110"
+   width="108">
+  <metadata
+     id="metadata844">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs842" />
+  <path
+     id="path5095"
+     d="M 22.311793,104.29195 C 23.134178,102.13045 34.127272,67.235826 34.033591,67.084245 33.962526,66.96926 26.59302,61.542499 17.656914,55.024775 L 1.4094448,43.174368 l 20.2670882,-0.061 20.267088,-0.061 5.925073,-18.583072 c 3.258789,-10.220689 5.990068,-18.6610672 6.069511,-18.7563962 0.07944,-0.095329 2.280964,6.5116622 4.892271,14.6822032 2.611307,8.170541 5.310464,16.611574 5.998127,18.757851 l 1.250295,3.902325 20.258576,0.05954 20.258576,0.05954 -16.430804,11.981969 c -11.794752,8.601184 -16.393598,12.078918 -16.298947,12.325577 0.508836,1.326003 11.766362,36.770845 11.718435,36.896035 -0.03333,0.0871 -6.877342,-4.819732 -15.20891,-10.904007 C 62.044256,87.389667 54.953831,82.212368 54.619322,81.968837 L 54.011124,81.526052 38.205825,93.054658 c -8.692915,6.340736 -15.850203,11.528612 -15.905084,11.528612 -0.05488,0 -0.04991,-0.13109 0.01105,-0.29132 z"
+     style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#03b559;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.69915253;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+</svg>

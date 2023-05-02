@@ -1,0 +1,17 @@
+E:\VSProjects\WatchShop\WatchShop.DAL\bin\Debug\net6.0\WatchShop.DAL.deps.json
+E:\VSProjects\WatchShop\WatchShop.DAL\bin\Debug\net6.0\WatchShop.DAL.dll
+E:\VSProjects\WatchShop\WatchShop.DAL\bin\Debug\net6.0\WatchShop.DAL.pdb
+E:\VSProjects\WatchShop\WatchShop.DAL\bin\Debug\net6.0\WatchShop.Entities.dll
+E:\VSProjects\WatchShop\WatchShop.DAL\bin\Debug\net6.0\WatchShop.Entities.pdb
+E:\VSProjects\WatchShop\WatchShop.DAL\obj\Debug\net6.0\WatchShop.DAL.csproj.AssemblyReference.cache
+E:\VSProjects\WatchShop\WatchShop.DAL\obj\Debug\net6.0\WatchShop.DAL.GeneratedMSBuildEditorConfig.editorconfig
+E:\VSProjects\WatchShop\WatchShop.DAL\obj\Debug\net6.0\WatchShop.DAL.AssemblyInfoInputs.cache
+E:\VSProjects\WatchShop\WatchShop.DAL\obj\Debug\net6.0\WatchShop.DAL.AssemblyInfo.cs
+E:\VSProjects\WatchShop\WatchShop.DAL\obj\Debug\net6.0\WatchShop.DAL.csproj.CoreCompileInputs.cache
+E:\VSProjects\WatchShop\WatchShop.DAL\obj\Debug\net6.0\WatchShop.DAL.csproj.CopyComplete
+E:\VSProjects\WatchShop\WatchShop.DAL\obj\Debug\net6.0\WatchShop.DAL.dll
+E:\VSProjects\WatchShop\WatchShop.DAL\obj\Debug\net6.0\refint\WatchShop.DAL.dll
+E:\VSProjects\WatchShop\WatchShop.DAL\obj\Debug\net6.0\WatchShop.DAL.pdb
+E:\VSProjects\WatchShop\WatchShop.DAL\obj\Debug\net6.0\ref\WatchShop.DAL.dll
+E:\VSProjects\WatchShop\WatchShop.DAL\bin\Debug\net6.0\WatchShop.DAL.runtimeconfig.json
+E:\VSProjects\WatchShop\WatchShop.DAL\obj\Debug\net6.0\WatchShop.DAL.genruntimeconfig.cache

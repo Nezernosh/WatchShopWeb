@@ -1,0 +1,13 @@
+﻿@model WatchesModel
+  
+<link rel="stylesheet" href="~/css/cart.css" asp-append-version="true"/>
+
+<div class="cart-product">
+    <img src="~/assets/img/@Model?.Picture" class="cart-product__img"/>
+    <div>
+        <p class="cart-product__title">@Model?.Name</p>
+        <p class="cart-product__price">@Model?.Price &#x20bd;</p>
+        <p class="cart-product__title">Рейтинг: @Model?.Rating</p>
+    </div>
+    <button type="button" class="cart-product__add" href="#">+</button>
+</div>

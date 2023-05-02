@@ -1,0 +1,1 @@
+Scaffold-DbContext 'Data Source=localhost;Initial Catalog=WatchStoreDB;Integrated security=True;TrustServerCertificate=True' Microsoft.EntityFrameworkCore.SqlServer -Context DefaultDbContext -OutputDir DbModels -StartupProject WatchShop.DAL -Project WatchShop.DAL -Force 

@@ -1,0 +1,44 @@
+﻿@model UsersModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+<link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+<main>
+    <h2>Аутентификация пользователя: </h2>
+    <section class="catalog">
+        <form id="loginForm" asp-action="Login">
+            <div class="form-group">
+                <label asp-for="Login" class="control-label">Логин: </label>
+                <input asp-for="Login" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label">Пароль: </label>
+                <input asp-for="Password" class="form-control" />
+            </div>
+            <div id="errorMessage" class="text-danger" style="display:none;">Пожалуйста, заполните все поля для ввода</div>
+            <div class="form-group">
+                <input type="submit" value="Вход" class="btn btn-primary" />
+            </div>
+        </form>
+        @Html.ValidationSummary(true)
+    </section>
+    <a asp-action="Register" style="margin-left:12.6%;">У меня нет аккаунта</a>
+</main>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        var login = document.getElementById('Login').value;
+        var password = document.getElementById('Password').value;
+        if (!login || !password) {
+            event.preventDefault();
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

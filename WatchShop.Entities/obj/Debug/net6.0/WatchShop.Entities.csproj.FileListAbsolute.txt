@@ -1,0 +1,12 @@
+E:\VSProjects\WatchShop\WatchShop.Entities\bin\Debug\net6.0\WatchShop.Entities.deps.json
+E:\VSProjects\WatchShop\WatchShop.Entities\bin\Debug\net6.0\WatchShop.Entities.dll
+E:\VSProjects\WatchShop\WatchShop.Entities\bin\Debug\net6.0\WatchShop.Entities.pdb
+E:\VSProjects\WatchShop\WatchShop.Entities\obj\Debug\net6.0\WatchShop.Entities.csproj.AssemblyReference.cache
+E:\VSProjects\WatchShop\WatchShop.Entities\obj\Debug\net6.0\WatchShop.Entities.GeneratedMSBuildEditorConfig.editorconfig
+E:\VSProjects\WatchShop\WatchShop.Entities\obj\Debug\net6.0\WatchShop.Entities.AssemblyInfoInputs.cache
+E:\VSProjects\WatchShop\WatchShop.Entities\obj\Debug\net6.0\WatchShop.Entities.AssemblyInfo.cs
+E:\VSProjects\WatchShop\WatchShop.Entities\obj\Debug\net6.0\WatchShop.Entities.csproj.CoreCompileInputs.cache
+E:\VSProjects\WatchShop\WatchShop.Entities\obj\Debug\net6.0\WatchShop.Entities.dll
+E:\VSProjects\WatchShop\WatchShop.Entities\obj\Debug\net6.0\refint\WatchShop.Entities.dll
+E:\VSProjects\WatchShop\WatchShop.Entities\obj\Debug\net6.0\WatchShop.Entities.pdb
+E:\VSProjects\WatchShop\WatchShop.Entities\obj\Debug\net6.0\ref\WatchShop.Entities.dll

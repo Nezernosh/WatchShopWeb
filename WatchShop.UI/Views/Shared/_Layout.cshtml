@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Pavel Trofimuk">
+    <meta name="description" content="SSU Web Task">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WatchStore - главная</title>
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true"/>
+</head>
+<body>
+    <header class="header">
+        <div class="header__container">
+            <nav id="index-nav">
+                <a id="logo" href="/">WatchStore</a>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a id="loginButton" asp-area="" asp-controller="Users" asp-action="Login">Войти</a>
+                }
+                else
+                {
+                    <a id="logoutButton" asp-area="" asp-controller="Users" asp-action="Logout">Выйти</a>
+                }
+                <div class="nav__div">
+                    <a class="icon favorite" href="#">
+                        <div id="favorite-count" class="item-count">2</div>
+                    </a>
+                    <a class="icon cart" href="#">
+                        <div id="cart-count" style="display:none" class="item-count">0</div>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__wrapper">
+                <a id="logo" href="/">WatchStore</a>
+                <div class="footer__column">
+                    <ul>
+                        <li>
+                            <a class="footer__text-link" href="#">Избранное</a>
+                        </li>
+                        <li>
+                            <a class="footer__text-link" href="#">Корзина</a>
+                        </li>
+                        <li>
+                            <a class="footer__text-link" href="#">Контакты</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__column">
+                    <a class="footer__text-link" href="#">Условия сервиса</a>
+                    <div class="footer__languages">
+                        <img class="icon language"></img>
+                        <a class="footer__text-link active" href="#">Рус</a>
+                        <a class="footer__text-link" href="#">Eng</a>
+                    </div>
+                </div>
+                <div class="footer__socials">
+                    <ul>
+                        <li>
+                            <a class="icon vk" href="#"></a>
+                        </li>
+                        <li>
+                            <a class="icon telegram" href="https://t.me/ssu_webshop_bot"></a>
+                        </li>
+                        <li>
+                            <a class="icon whatsapp" href="#"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

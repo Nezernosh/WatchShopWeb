@@ -1,0 +1,30 @@
+version: '3.4'
+
+networks:    
+  shops:
+
+services:
+  msdb:
+    container_name: watchshop-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+     - 8002:1433
+    environment:
+     - ACCEPT_EULA=Y
+     - SA_PASSWORD=Pavel0503!@#
+    networks:
+      - shops
+ 
+  watchshop.ui:
+    image: ${DOCKER_REGISTRY-}watchshopui
+    build:
+      context: .
+      dockerfile: WatchShop.UI/Dockerfile
+    depends_on:
+      - msdb
+    environment:
+      - DB_HOST=msdb
+      - DB_NAME=WatchStoreDB
+      - DB_SA_PASSWORD=Pavel0503!@#
+    networks:
+      - shops
