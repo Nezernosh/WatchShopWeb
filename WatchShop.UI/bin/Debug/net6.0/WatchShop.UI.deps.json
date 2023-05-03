@@ -13,7 +13,7 @@
           "Microsoft.Extensions.Configuration": "7.0.0",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.18.1",
           "RabbitMQ.Client": "6.5.0",
-          "StackExchange.Redis": "2.6.104",
+          "StackExchange.Redis": "2.6.111",
           "WatchShop.BLL": "1.0.0",
           "WatchShop.Entities": "1.0.0",
           "WatchShop.TelegramBot": "1.0.0"
@@ -501,14 +501,14 @@
           }
         }
       },
-      "StackExchange.Redis/2.6.104": {
+      "StackExchange.Redis/2.6.111": {
         "dependencies": {
           "Pipelines.Sockets.Unofficial": "2.2.2"
         },
         "runtime": {
           "lib/net5.0/StackExchange.Redis.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.6.104.40210"
+            "fileVersion": "2.6.111.64013"
           }
         }
       },
@@ -1127,12 +1127,12 @@
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
     },
-    "StackExchange.Redis/2.6.104": {
+    "StackExchange.Redis/2.6.111": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ccfmWZifNOk2c+co6urH9BeyUzmbqalyksVy6Ma28xNTLT3Nrng+5OX+EB5KrTsWHykoZTGzTM3L7ndySuxEuA==",
-      "path": "stackexchange.redis/2.6.104",
-      "hashPath": "stackexchange.redis.2.6.104.nupkg.sha512"
+      "sha512": "sha512-49NlwihVG9I1YaPqYBx2e2yPqC4ecXMog8zVXMC3rjj2kufGkC3ofqvhOPBKP0c9ZQdJ3hhzduM7ckOQTE+gxg==",
+      "path": "stackexchange.redis/2.6.111",
+      "hashPath": "stackexchange.redis.2.6.111.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",

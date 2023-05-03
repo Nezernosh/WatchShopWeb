@@ -13,6 +13,58 @@ services:
       target: 1433
       published: "8002"
       protocol: tcp
+    volumes:
+    - type: bind
+      source: E:\VSProjects\WatchShop\volumes\data
+      target: /var/opt/mssql/data
+      bind:
+        create_host_path: true
+    - type: bind
+      source: E:\VSProjects\WatchShop\volumes\log
+      target: /var/opt/mssql/log
+      bind:
+        create_host_path: true
+    - type: bind
+      source: E:\VSProjects\WatchShop\volumes\secrets
+      target: /var/opt/mssql/secrets
+      bind:
+        create_host_path: true
+  rabbitmq:
+    image: rabbitmq:3-management
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 15672
+      published: "15672"
+      protocol: tcp
+    - mode: ingress
+      target: 5672
+      published: "5672"
+      protocol: tcp
+    restart: on-failure
+    volumes:
+    - type: bind
+      source: E:\VSProjects\WatchShop\volumes\rabbitmq
+      target: /var/lib/rabbitmq/mnesia
+      bind:
+        create_host_path: true
+  redis:
+    image: redis/redis-stack-server:latest
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 6379
+      published: "6379"
+      protocol: tcp
+    restart: on-failure
+    volumes:
+    - type: bind
+      source: E:\VSProjects\WatchShop\volumes\redis
+      target: /data
+      bind:
+        create_host_path: true
   watchshop.ui:
     build:
       context: E:\VSProjects\WatchShop
@@ -20,6 +72,7 @@ services:
       labels:
         com.microsoft.created-by: visual-studio
         com.microsoft.visual-studio.project-name: WatchShop.UI
+      target: base
     container_name: WatchShop.UI
     depends_on:
       msdb:
@@ -30,14 +83,16 @@ services:
     - /dev/null
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
       ASPNETCORE_URLS: https://+:443;http://+:80
       DB_HOST: msdb
       DB_NAME: WatchStoreDB
       DB_SA_PASSWORD: Pavel0503!@#
-    image: watchshopui
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      NUGET_FALLBACK_PACKAGES: ""
+    image: watchshopui:dev
     labels:
-      com.microsoft.visual-studio.project-name: WatchShop.UI
-      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/WatchShop.UI.dll"'
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/net6.0/WatchShop.UI.dll"'
       com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
         dotnet); then kill $$PID; fi"
       com.microsoft.visualstudio.debuggee.program: dotnet
@@ -53,6 +108,11 @@ services:
       protocol: tcp
     tty: true
     volumes:
+    - type: bind
+      source: E:\VSProjects\WatchShop\WatchShop.UI
+      target: /app
+      bind:
+        create_host_path: true
     - type: bind
       source: C:\Users\trofimukpv\vsdbg\vs2017u5
       target: /remote_debugger
@@ -70,6 +130,19 @@ services:
       read_only: true
       bind:
         create_host_path: true
+    - type: bind
+      source: C:\Users\trofimukpv\.nuget\packages\
+      target: /root/.nuget/packages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: E:\VSProjects\WatchShop
+      target: /src
+      bind:
+        create_host_path: true
 networks:
+  default:
+    name: dockercompose483394491638932896_default
   shops:
     name: dockercompose483394491638932896_shops

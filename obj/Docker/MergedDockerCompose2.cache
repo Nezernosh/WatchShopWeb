@@ -13,6 +13,58 @@ services:
       target: 1433
       published: "8002"
       protocol: tcp
+    volumes:
+    - type: bind
+      source: E:\VSProjects\WatchShop\volumes\data
+      target: /var/opt/mssql/data
+      bind:
+        create_host_path: true
+    - type: bind
+      source: E:\VSProjects\WatchShop\volumes\log
+      target: /var/opt/mssql/log
+      bind:
+        create_host_path: true
+    - type: bind
+      source: E:\VSProjects\WatchShop\volumes\secrets
+      target: /var/opt/mssql/secrets
+      bind:
+        create_host_path: true
+  rabbitmq:
+    image: rabbitmq:3-management
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 15672
+      published: "15672"
+      protocol: tcp
+    - mode: ingress
+      target: 5672
+      published: "5672"
+      protocol: tcp
+    restart: on-failure
+    volumes:
+    - type: bind
+      source: E:\VSProjects\WatchShop\volumes\rabbitmq
+      target: /var/lib/rabbitmq/mnesia
+      bind:
+        create_host_path: true
+  redis:
+    image: redis/redis-stack-server:latest
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 6379
+      published: "6379"
+      protocol: tcp
+    restart: on-failure
+    volumes:
+    - type: bind
+      source: E:\VSProjects\WatchShop\volumes\redis
+      target: /data
+      bind:
+        create_host_path: true
   watchshop.ui:
     build:
       context: E:\VSProjects\WatchShop
@@ -50,5 +102,7 @@ services:
       bind:
         create_host_path: true
 networks:
+  default:
+    name: dockercompose483394491638932896_default
   shops:
     name: dockercompose483394491638932896_shops

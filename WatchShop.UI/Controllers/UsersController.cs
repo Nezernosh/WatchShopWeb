@@ -6,6 +6,10 @@ using System.Security.Claims;
 using WatchShop.UI.Models;
 using WatchShop.BLL.Interfaces;
 using WatchShop.Entities;
+using WatchShop.UI.RabbitMQ;
+using WatchShop.UI.Redis;
+using WatchShop.TelegramBot;
+using WatchShop.BLL;
 
 namespace WatchShop.UI.Controllers
 {
@@ -13,11 +17,15 @@ namespace WatchShop.UI.Controllers
     {
         private readonly ILogger<UsersController> _logger;
         private IUsersBLL _usersBLL;
+        public RabbitMQClient rabbit { get; set; }
+        //public RedisStorageClient redis { get; set; }
 
         public UsersController(ILogger<UsersController> logger, IUsersBLL usersBLL)
         {
             _logger = logger;
             _usersBLL = usersBLL;
+            rabbit = SingleRabbitAndRedis.Instance.Rabbit;
+            //redis = SingleRabbitAndRedis.Instance.Redis;
         }
 
         public async Task<IActionResult> Logout()
@@ -44,14 +52,31 @@ namespace WatchShop.UI.Controllers
                 {
                     if (await IsValidAccountData(login, password))
                     {
-                        await Authenticate(login);
-
-                        return RedirectToAction("Index", "Home");
+                        var isUsed = await _usersBLL.IsUsedPass(login);
+                        if (isUsed != null && isUsed == false)
+                        {
+                            await Authenticate(login, password);
+                            rabbit.Send($"Пользователь {login} успешно зашёл в систему.");
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            string err = "Действие пароля истекло.";
+                            ModelState.AddModelError("", err);
+                            rabbit.Send($"{err} Для пользователя {login}");
+                        }
                     }
-                    ModelState.AddModelError("", "Неверные логин или пароль.");
+                    else
+                    {
+                        string err = "Неверные логин или пароль.";
+                        ModelState.AddModelError("", err);
+                        rabbit.Send(err);
+                    }
                 }
                 else
+                {
                     ModelState.AddModelError("", "Все поля должны быть заполнены.");
+                }
             }
             return View(model);
         }
@@ -74,12 +99,14 @@ namespace WatchShop.UI.Controllers
                 {
                     if (await _usersBLL.Add(login, password))
                     {
-                        await Authenticate(login);
+                        await Authenticate(login, password);
                         return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Введён занятый логин");
+                        string err = "Введён занятый логин.";
+                        ModelState.AddModelError("", err);
+                        rabbit.Send($"{err} - {login}");
                     }
                 }
                 else
@@ -97,16 +124,11 @@ namespace WatchShop.UI.Controllers
             return true;
         }
 
-        private async Task Authenticate(string login)
+        private async Task Authenticate(string login, string password)
         {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, login)
-            };
-
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            var identity = new CustomUserIdentity(login, password);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+            await _usersBLL.UsedPass(login);
         }
     }
 }

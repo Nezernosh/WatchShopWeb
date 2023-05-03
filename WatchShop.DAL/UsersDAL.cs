@@ -76,24 +76,16 @@ namespace WatchShop.DAL
                     await context.SaveChangesAsync();
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
         }
         public async Task<bool> Check(string login, string password)
         {
             using (var context = new DefaultDbContext())
             {
-                bool flag = false;
                 var dalUser = context.Users.FirstOrDefault(item => item.Login == login);
                 var dalPass = context.OneTimePasswords.FirstOrDefault(item => item.UserId == dalUser.Id);
-                if (dalPass.Password == password)
-                {
-                    flag = true;
-                }
-                return flag;
+                return dalPass.Password == password;
             }
         }
 
@@ -101,17 +93,44 @@ namespace WatchShop.DAL
         {
             using (var context = new DefaultDbContext())
             {
-                bool flag = false;
                 var dalUser = context.Users.FirstOrDefault(item => item.Login == login);
                 if (dalUser != null)
                 {
                     var dalPass = context.OneTimePasswords.FirstOrDefault(item => item.UserId == dalUser.Id);
                     dalPass.Password = password;
+                    dalPass.IsUsed = false;
                     context.OneTimePasswords.Update(dalPass);
                     await context.SaveChangesAsync();
-                    flag = true;
+                    return true;
                 }
-                return flag;
+                return false;
+            }
+        }
+
+        public async Task<bool> UsedPass(string login)
+        {
+            using (var context = new DefaultDbContext())
+            {
+                var dalUser = context.Users.FirstOrDefault(item => item.Login == login);
+                if (dalUser != null)
+                {
+                    var dalPass = context.OneTimePasswords.FirstOrDefault(item => item.UserId == dalUser.Id);
+                    dalPass.IsUsed = true;
+                    context.OneTimePasswords.Update(dalPass);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public async Task<bool?> IsUsedPass(string login)
+        {
+            using (var context = new DefaultDbContext())
+            {
+                var dalUser = context.Users.FirstOrDefault(item => item.Login == login);
+                var dalPass = context.OneTimePasswords.FirstOrDefault(item => item.UserId == dalUser.Id);
+                return dalPass.IsUsed;
             }
         }
     }

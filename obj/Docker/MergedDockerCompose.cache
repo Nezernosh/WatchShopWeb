@@ -1,15 +1,34 @@
 name: dockercompose483394491638932896
 services:
+  msdb:
+    container_name: watchshop-db
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Pavel0503!@#
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      shops: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: "8002"
+      protocol: tcp
   watchshop.ui:
     build:
       context: E:\VSProjects\WatchShop
       dockerfile: WatchShop.UI/Dockerfile
+    depends_on:
+      msdb:
+        condition: service_started
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: https://+:443;http://+:80
+      DB_HOST: msdb
+      DB_NAME: WatchStoreDB
+      DB_SA_PASSWORD: Pavel0503!@#
     image: watchshopui
     networks:
-      default: null
+      shops: null
     ports:
     - mode: ingress
       target: 80
@@ -31,5 +50,5 @@ services:
       bind:
         create_host_path: true
 networks:
-  default:
-    name: dockercompose483394491638932896_default
+  shops:
+    name: dockercompose483394491638932896_shops

@@ -10,5 +10,7 @@ namespace WatchShop.DAL.Interfaces
         Task<bool> Add(string login, string password);
         Task<bool> Check(string login, string password);
         Task<bool> ChangePass(string login, string password);
+        Task<bool> UsedPass(string login);
+        Task<bool?> IsUsedPass(string login);
     }
 }

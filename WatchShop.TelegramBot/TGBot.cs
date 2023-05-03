@@ -1,73 +1,75 @@
 ﻿using WatchShop.BLL.Interfaces;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using System.Text;
-using Telegram.Bot.Polling;
+using Telegram.Bot.Types.Enums;
 
 namespace WatchShop.TelegramBot
 {
     public class TGBot
     {
         private static string token = "6081339274:AAEZY_GB89wKZWolUrTYFSxbaJAU3Ha5M3U";
-        private readonly ITelegramBotClient bot = new TelegramBotClient(token);
-        private readonly IUsersBLL _usersBLL;
+        //private static string token = Environment.GetEnvironmentVariable("TOKEN");
+        private static TelegramBotClient bot;
+        private static IUsersBLL _usersBLL;
 
         public TGBot(IUsersBLL usersBLL)
         {
+            bot = new TelegramBotClient(token);
             _usersBLL = usersBLL;
 
-            var cts = new CancellationTokenSource();
-            var cancellationToken = cts.Token;
-            var receiverOptions = new ReceiverOptions
-            {
-                AllowedUpdates = { }, // receive all update types
-            };
-            bot.StartReceiving(
-                HandleUpdateAsync,
-                HandleErrorAsync,
-                receiverOptions,
-                cancellationToken
-            );
+            bot.StartReceiving(Update, Error);
         }
 
-        public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+        async static Task Update(ITelegramBotClient bot, Update update, CancellationToken cancellationToken)
         {
-            // Некоторые действия
-            if (update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
+            if (update.Type == UpdateType.Message)
             {
                 var message = update.Message;
                 if (message.Text.ToLower() == "/start")
                 {
-                    await botClient.SendTextMessageAsync(message.Chat, "Добро пожаловать на борт, добрый путник!");
+                    await bot.SendTextMessageAsync(message.Chat, $"Приветствую, {message.From.FirstName} {message.From.LastName}!");
                     return;
                 }
                 if (message.Text.ToLower() == "/getpass")
                 {
-                    await botClient.SendTextMessageAsync(message.Chat, "Введите логин для которого вы хотите получить новый пароль:");
-                    var login = update.Message.Text;
-                    var pass = "test23";
-                    if (await _usersBLL.ChangePass(login, pass))
-                    {
-                        await botClient.SendTextMessageAsync(message.Chat, $"Новый пароль для входа в {login}: {pass}");
-                        return;
-                    }
+                    await bot.SendTextMessageAsync(message.Chat, "Введите свой логин для получения нового пароля:");
+                    return;
+                    
+                }
+                if (message.Text.ToLower() == "/help")
+                {
+                    await bot.SendTextMessageAsync(message.Chat, "Простой чат-бот для генерации одноразовых паролей. Мои доступные команды: /start, /getpass, /help");
+                    return;
+                }
+                var login = message.Text;
+                var pass = GeneratePass(16);
+                if (await _usersBLL.ChangePass(login, pass))
+                {
+                    await bot.SendTextMessageAsync(message.Chat, $"Новый пароль для входа в {login}: {pass}");
                 }
                 else
                 {
-                    await botClient.SendTextMessageAsync(message.Chat, "Непонятная команда");
-                    return;
+                    await bot.SendTextMessageAsync(message.Chat, $"Пользователь {login} не найден");
                 }
+                return;
             }
         }
-
-        public async Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+        private static string GeneratePass(int length)
         {
-            // Некоторые действия
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(exception));
+            string validChars = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*?_-";
+            Random rand = new Random();
+            string result = "";
+
+            for (int i = 0; i < length; i++)
+            {
+                result += validChars[rand.Next(validChars.Length)];  
+            }
+
+            return result;
+        }
+        private static Task Error(ITelegramBotClient bot, Exception exception, CancellationToken cancellationToken)
+        {
+            throw exception;
         }
     }
 }

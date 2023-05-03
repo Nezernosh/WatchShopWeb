@@ -35,10 +35,17 @@ namespace WatchShop.BLL
         {
             return await _usersDAL.Check(login, password);
         }
-
         public async Task<bool> ChangePass(string login, string password)
         {
             return await _usersDAL.ChangePass(login, password);
+        }
+        public async Task<bool> UsedPass(string login)
+        {
+            return await _usersDAL.UsedPass(login);
+        }
+        public async Task<bool?> IsUsedPass(string login)
+        {
+            return await _usersDAL.IsUsedPass(login);
         }
     }
 }

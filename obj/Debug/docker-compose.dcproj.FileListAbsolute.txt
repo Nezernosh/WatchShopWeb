@@ -32,5 +32,9 @@ E:\VSProjects\WatchShop\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
 E:\VSProjects\WatchShop\obj\Debug\docker-compose.dcproj.CopyComplete
 E:\VSProjects\WatchShop\bin\Debug\WatchShop.TelegramBot.dll
 E:\VSProjects\WatchShop\bin\Debug\Telegram.Bot.dll
-E:\VSProjects\WatchShop\bin\Debug\Newtonsoft.Json.dll
 E:\VSProjects\WatchShop\bin\Debug\WatchShop.TelegramBot.pdb
+E:\VSProjects\WatchShop\bin\Debug\StackExchange.Redis.dll
+E:\VSProjects\WatchShop\bin\Debug\RabbitMQ.Client.dll
+E:\VSProjects\WatchShop\bin\Debug\Newtonsoft.Json.dll
+E:\VSProjects\WatchShop\bin\Debug\Pipelines.Sockets.Unofficial.dll
+E:\VSProjects\WatchShop\bin\Debug\System.Threading.Channels.dll

@@ -1,17 +1,14 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore;
 using WatchShop.BLL;
 using WatchShop.BLL.Interfaces;
 using WatchShop.DAL;
-using WatchShop.DAL.DbModels;
 using WatchShop.DAL.Interfaces;
 using WatchShop.TelegramBot;
 
 var builder = WebApplication.CreateBuilder(args);
-/*
-var configuration = builder.Configuration;
-builder.Services.AddDbContext<DefaultDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString")));
-*/
+
+/*var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
+builder.Services.AddDbContext<DefaultDbContext>(options => options.UseSqlServer(connectionString));*/
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
@@ -32,6 +29,11 @@ builder.Services.AddScoped<IWatchesBLL, WatchesBLL>();
 builder.Services.AddScoped<TGBot>();
 ServiceProvider serviceProvider = t.BuildServiceProvider();
 TGBot tg = new TGBot(serviceProvider.GetService<IUsersBLL>());
+
+/*builder.Services.AddSingleton<RabbitMQClient>();
+RabbitMQClient rmc = new RabbitMQClient();
+builder.Services.AddSingleton<RedisStorageClient>();
+RedisStorageClient rsc = new RedisStorageClient();*/
 
 var app = builder.Build();
 

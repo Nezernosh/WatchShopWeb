@@ -4,22 +4,48 @@ networks:
   shops:
 
 services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    restart: on-failure
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+      - ./volumes/rabbitmq:/var/lib/rabbitmq/mnesia
+    networks:
+      - shops
+  redis:
+     container_name: redis
+     image: redis/redis-stack-server:latest
+     restart: on-failure
+     ports:
+       - 6379:6379 
+     volumes:
+       - ./volumes/redis:/data
+     networks:
+       - shops
   msdb:
     container_name: watchshop-db
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
      - 8002:1433
+    volumes:
+      - ./volumes/data:/var/opt/mssql/data
+      - ./volumes/log:/var/opt/mssql/log
+      - ./volumes/secrets:/var/opt/mssql/secrets
     environment:
      - ACCEPT_EULA=Y
      - SA_PASSWORD=Pavel0503!@#
     networks:
       - shops
- 
   watchshop.ui:
-    image: ${DOCKER_REGISTRY-}watchshopui
+    image: ${DOCKER_REGISTRY-}watchshopui 
     build:
       context: .
       dockerfile: WatchShop.UI/Dockerfile
+    ports:
+     - 5001:80
     depends_on:
       - msdb
     environment:
